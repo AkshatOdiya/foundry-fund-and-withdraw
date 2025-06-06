@@ -28,10 +28,7 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(
-            msg.value.getConversionRate(s_PriceFeed) >= MINIMUM_USD,
-            "You need to spend more ETH!"
-        );
+        require(msg.value.getConversionRate(s_PriceFeed) >= MINIMUM_USD, "You need to spend more ETH!");
         // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
@@ -52,9 +49,11 @@ contract FundMe {
         //length is read once, gas optimisation
         for (
             uint256 funderIndex = 0;
-            funderIndex < fundersLenght; //you see this lenght is read every single time loop iterates.
-            funderIndex++ //this is cause excess GAS use, so instead we can make a function that read it once.
+            funderIndex < fundersLenght;
+            //you see this lenght is read every single time loop iterates.
+            funderIndex++
         ) {
+            //this is cause excess GAS use, so instead we can make a function that read it once.
             address funder = s_funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
@@ -67,37 +66,35 @@ contract FundMe {
         // require(sendSuccess, "Send failed");
 
         // call
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Call failed");
     }
 
-    /** 
-    function withdraw() public onlyOwner {
-        for (
-            uint256 funderIndex = 0;
-            funderIndex < s_funders.length; //you see this lenght is read every single time loop iterates.
-            funderIndex++ //this is cause excess GAS use, so instead we can make a function that read it once.
-        ) {
-            address funder = s_funders[funderIndex];
-            s_addressToAmountFunded[funder] = 0;
-        }
-        s_funders = new address[](0);
-        // // transfer
-        // payable(msg.sender).transfer(address(this).balance);
-
-        // // send
-        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
-        // require(sendSuccess, "Send failed");
-
-        // call
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
-        require(callSuccess, "Call failed");
-    }
-*/
+    /**
+     * function withdraw() public onlyOwner {
+     *     for (
+     *         uint256 funderIndex = 0;
+     *         funderIndex < s_funders.length; //you see this lenght is read every single time loop iterates.
+     *         funderIndex++ //this is cause excess GAS use, so instead we can make a function that read it once.
+     *     ) {
+     *         address funder = s_funders[funderIndex];
+     *         s_addressToAmountFunded[funder] = 0;
+     *     }
+     *     s_funders = new address[](0);
+     *     // // transfer
+     *     // payable(msg.sender).transfer(address(this).balance);
+     *
+     *     // // send
+     *     // bool sendSuccess = payable(msg.sender).send(address(this).balance);
+     *     // require(sendSuccess, "Send failed");
+     *
+     *     // call
+     *     (bool callSuccess, ) = payable(msg.sender).call{
+     *         value: address(this).balance
+     *     }("");
+     *     require(callSuccess, "Call failed");
+     * }
+     */
     // Explainer from: https://solidity-by-example.org/fallback/
     // Ether is sent to contract
     //      is msg.data empty?
@@ -118,9 +115,7 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFunded(
-        address fundingAddress
-    ) external view returns (uint256) {
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
 
