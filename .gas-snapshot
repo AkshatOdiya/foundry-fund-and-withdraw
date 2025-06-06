@@ -1,0 +1,8 @@
+FundMeTest:testFundFailWithoutEnoughEth() (gas: 25094)
+FundMeTest:testMinimumDollarIsFive() (gas: 8834)
+FundMeTest:testOwner() (gas: 8986)
+FundMeTest:testStorageVariable() (gas: 102956)
+FundMeTest:testVersion() (gas: 14334)
+FundMeTest:testWithdrawFromMultipleFunders() (gas: 510201)
+FundMeTest:testWithdrawNotOwner() (gas: 103211)
+FundMeTest:testWithdrawSingleFunder() (gas: 89013)
