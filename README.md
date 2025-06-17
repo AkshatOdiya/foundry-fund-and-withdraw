@@ -1,4 +1,4 @@
-```markdown
+
 # Foundry Fund and Withdraw Project
 
 This repository contains a simple smart contract project built using **Foundry**. The project demonstrates the core functionality of **funding** and **withdrawing** Ether from a contract, along with unit tests to ensure its correctness.
@@ -10,7 +10,6 @@ This repository contains a simple smart contract project built using **Foundry**
 - [Foundry](https://book.getfoundry.sh/getting-started/installation) (installed via `foundryup`)
 - Git
 
-```
 ### Compile Contracts
 
 ```bash
